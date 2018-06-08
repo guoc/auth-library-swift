@@ -141,12 +141,11 @@ public class BrowserTokenProvider: TokenProvider {
     }
   }
   
-  public func signIn(scopes: [String]) throws {
+  public func signIn() throws {
     let sem = DispatchSemaphore(value: 0)
     startServer(sem: sem)
     
     let state = UUID().uuidString
-    let scope = scopes.joined(separator: " ")
     
     var urlComponents = URLComponents(string: credentials.authorizeURL)!
     urlComponents.queryItems = [
@@ -154,7 +153,6 @@ public class BrowserTokenProvider: TokenProvider {
       URLQueryItem(name: "response_type", value: "code"),
       URLQueryItem(name: "redirect_uri", value: "http://localhost:8080" + credentials.callback),
       URLQueryItem(name: "state", value: state),
-      URLQueryItem(name: "scope", value: scope),
       URLQueryItem(name: "show_dialog", value: "false"),
     ]
     openURL(urlComponents.url!)
