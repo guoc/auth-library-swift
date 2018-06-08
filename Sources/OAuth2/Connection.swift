@@ -82,7 +82,7 @@ public class Connection {
         urlString: urlString,
         parameters: parameters,
         body: body,
-        authorization: "Bearer " + accessToken,
+        authorization: "OAuth2 " + accessToken,
         callback: callback)
     }
   }
